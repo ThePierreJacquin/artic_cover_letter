@@ -36,10 +36,8 @@ def input_form() -> None:
     with st.form("input", border=True):
         st.subheader(":card_index: Upload your CV", divider="blue")
         st.file_uploader("CV", ["pdf"], label_visibility="collapsed", disabled=True, key="file")
-        file = "data/CV.pdf"
-        st.session_state.file = file
         if st.session_state.file:
-            pdf_reader = PdfReader(file)
+            pdf_reader = PdfReader( st.session_state.file)
             st.session_state.cv = ""
             for page in pdf_reader.pages:
                 st.session_state.cv += page.extract_text()
