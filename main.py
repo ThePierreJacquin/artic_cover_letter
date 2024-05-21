@@ -31,7 +31,7 @@ def sidebar() -> None:
             else:
                 st.caption("Replicate API Token :white_check_mark:")
 
-        os.environ['REPLICATE_API_TOKEN'] = replicate_api
+        st.session_state['REPLICATE_API_TOKEN'] = replicate_api
 
 def input_form() -> None:
     # Create the input form for uploading CV and pasting the job offer
