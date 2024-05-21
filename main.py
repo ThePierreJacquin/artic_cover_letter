@@ -5,6 +5,7 @@ import replicate
 from concurrent.futures import ThreadPoolExecutor
 from threading import current_thread
 import streamlit as st
+import os
 from streamlit.delta_generator import DeltaGenerator
 from streamlit.runtime.scriptrunner.script_run_context import (
     add_script_run_ctx,
@@ -24,7 +25,7 @@ def sidebar() -> None:
             replicate_api = st.secrets['REPLICATE_API_TOKEN']
             st.caption("Replicate API Token found :white_check_mark:")
         else:
-            replicate_api = st.text_input('Enter Replicate API token:', type='password')
+            os.environ['REPLICATE_API_TOKEN'] = st.text_input('Enter Replicate API token:', type='password')
             if not (replicate_api.startswith('r8_') and len(replicate_api) == 40):
                 st.warning('Please enter your Replicate API token.', icon='⚠️')
                 st.markdown(
