@@ -37,7 +37,7 @@ def input_form() -> None:
     # Create the input form for uploading CV and pasting the job offer
     with st.form("input", border=True):
         st.subheader(":card_index: Upload your CV", divider="blue")
-        st.file_uploader("CV", ["pdf"], label_visibility="collapsed",key="file")
+        st.file_uploader("CV", ["pdf"], label_visibility="collapsed",key="file",accept_multiple_files=False)
         if st.session_state.file:
             pdf_reader = PdfReader( st.session_state.file)
             st.session_state.cv = ""
@@ -123,6 +123,7 @@ def generate_links() -> None:
 
 def stream_data_in_column(function: callable, container: DeltaGenerator, ctx: any) -> None:
     # Populate columns simultaneously with streamed data
+    st.write("Test")
     add_script_run_ctx(currentThread(), ctx)
     with container:
         st.write_stream(function)
