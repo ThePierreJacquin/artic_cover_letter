@@ -6,7 +6,6 @@ from concurrent.futures import ThreadPoolExecutor
 from threading import current_thread
 import streamlit as st
 from streamlit.delta_generator import DeltaGenerator
-import functools
 from streamlit.runtime.scriptrunner.script_run_context import (
     add_script_run_ctx,
     get_script_run_ctx,
@@ -143,7 +142,7 @@ def main() -> None:
     with ThreadPoolExecutor(max_workers=2) as executor:
         ctx = get_script_run_ctx()
         futures = [
-            executor.submit(functools.partial(stream_data_in_column, function, container, ctx)) for container, function in parameters
+            executor.submit(stream_data_in_column, function, container, ctx) for container, function in parameters
         ]
 
 if __name__ == "__main__":
