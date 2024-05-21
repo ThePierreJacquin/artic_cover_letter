@@ -26,7 +26,7 @@ def sidebar() -> None:
             st.caption("Replicate API Token found :white_check_mark:")
         else:
             os.environ['REPLICATE_API_TOKEN'] = st.text_input('Enter Replicate API token:', type='password')
-            if not (replicate_api.startswith('r8_') and len(replicate_api) == 40):
+            if not (os.environ['REPLICATE_API_TOKEN'].startswith('r8_') and len(os.environ['REPLICATE_API_TOKEN']) == 40):
                 st.warning('Please enter your Replicate API token.', icon='⚠️')
                 st.markdown(
                     "**Don't have an API token?** Head over to [Replicate](https://replicate.com) to sign up for one."
