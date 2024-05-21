@@ -138,9 +138,10 @@ def main() -> None:
     keypoints_container.subheader(":dart: Key points", divider="blue")
     
     parameters = zip([keypoints_container, letter_container], [generate_links, generate_cover_letter])
-
+    with keypoints_container:
+        st.write_stream()
     with ThreadPoolExecutor(max_workers=2) as executor:
-        ctx = get_script_run_ctx()
+        ctx = get_script_run_ctx(generate_links())
         futures = [
             executor.submit(stream_data_in_column, function, container, ctx) for container, function in parameters
         ]
