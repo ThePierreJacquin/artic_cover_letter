@@ -18,18 +18,20 @@ def initialization() -> None:
     st.header(":snowflake: Generate your cover letter with Artic!", divider="blue")
 
 def sidebar() -> None:
-    st.title('Snowflake Arctic')
-    if 'REPLICATE_API_TOKEN' in st.secrets:
-        replicate_api = st.secrets['REPLICATE_API_TOKEN']
-    else:
-        replicate_api = st.text_input('Enter Replicate API token:', type='password')
-        if not (replicate_api.startswith('r8_') and len(replicate_api)==40):
-            st.warning('Please enter your Replicate API token.', icon='⚠️')
-            st.markdown("**Don't have an API token?** Head over to [Replicate](https://replicate.com) to sign up for one.")
+    # Setup the sidebar for parameter input and Replicate API token validation
+    with st.sidebar:
+        st.header('Parameters', divider=True)
+        if 'REPLICATE_API_TOKEN' in st.secrets:
+            replicate_api = st.secrets['REPLICATE_API_TOKEN']
         else:
-            st.caption("Replicate API Token :white_check_mark:")
+            replicate_api = st.text_input('Enter Replicate API token:', type='password')
+            if not (replicate_api.startswith('r8_') and len(replicate_api)==40):
+                st.warning('Please enter your Replicate API token.', icon='⚠️')
+                st.markdown("**Don't have an API token?** Head over to [Replicate](https://replicate.com) to sign up for one.")
+            else:
+                st.caption("Replicate API Token :white_check_mark:")
 
-    os.environ['REPLICATE_API_TOKEN'] = replicate_api
+        os.environ['REPLICATE_API_TOKEN'] = replicate_api
 
 def input_form() -> None:
     # Create the input form for uploading CV and pasting the job offer
